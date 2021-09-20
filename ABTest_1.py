@@ -49,6 +49,7 @@ def reject_null(variantA_outcomes_f, variantB_outcomes_f, alpha_f, num_sides_f):
     z_crit = get_z_crit_value(alpha_f, num_sides_f)
     ##### reject_null_TF_f = None         ##### Replace None with formula. This should result in a boolean variable (True or False). You can check the variable type in the console with the command: "type(reject_null_TF_f)"
     if z_score >= z_crit and p_value < alpha_f:
+    # if z_score >= z_crit:
         reject_null_TF_f = True
     else:
         reject_null_TF_f = False
@@ -120,6 +121,7 @@ variantB_outcomes = df.loc[(df['Variant'] == 'B') & (df.date >= trial_start_date
 p0 = calc_proportion(variantA_outcomes_control)     # this would be the baseline prior to starting a test since we would only have historical information
 n_star = int(np.ceil(calc_optimal_sample_size(p0, mde, alpha, power)))    # optimal sample size; rounding up using np.ceil because sample must be a whole number that is *at least* as large as the optimal size
 num_samples = 10
+### num_samples = 10000 ### can test with more number of samples -- find that % of reject null is closed to 50% (when I tried with n = 10000)
 
 print('The optimal sample size is %d ' % n_star)
 if n_star > variantB_outcomes.shape[0]:
